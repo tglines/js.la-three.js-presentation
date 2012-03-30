@@ -1,0 +1,14 @@
+js.la Three.js presentation
+===========================
+
+Install:
+--------
+
+1. Grab the git repo
+2. npm install to grab the necessary packages
+3. coffee app.coffee
+
+Questions:
+----------
+
+1. Tweet @travisglines

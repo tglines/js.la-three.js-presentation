@@ -1,0 +1,553 @@
+div#impress
+
+  div.no-support-message Your browser doesn't support impress.js.  Try Chrome.
+
+  div#slide0.step(data-x="0",data-y="0")
+    div.title So You Want To Make A Game Like Angry Birds Space
+    img(src='/img/angry_birds.jpg')
+
+  div#slide1a.step(data-x="0",data-y="15000")
+    div.title Who is this guy?
+    div.small_title Travis Glines
+
+  div#slide1b.step(data-x="10000",data-y="15000")
+    div.title Shameless Plug
+    div.small_title Run a node.js based startup called Shopaboo here in LA
+    div.small_title It's awesome, check it out
+
+  div#slide1c.step(data-x="0",data-y="1500")
+    div.title We'll Use WebGL and Three.js
+    div.small_text The future of 3D on the web
+
+  div#slide2.step(data-x='500',data-y='0',data-scale='0.3')
+    div.small_title What we'll go over
+    ul
+      li WebGL
+      li Three.js
+      li Parts of a Three.js scene
+      li Adding objects to a scene
+      li Animating objects through a scene
+      li Applying textures
+      li A bit of math
+
+  div#slide3.step(data-x='500',data-y='-400')
+    div.small_title WebGL
+    ul
+      li Low level 3D graphics API
+      li Based on OpenGL ES 2.0
+      li Uses the HTML5 Canvas element
+
+  div#slide4.step(data-x='500',data-y='-800',data-scale='0.5')
+    div.small_title Three.js
+    ul
+      li Lightweight 3D library with a very low level of complexity
+      li Basically 3D web API "for dummies"
+      li Provides multiple renderers including canvas, svg and WebGL
+
+  div#slide5.step(data-x='500',data-y='800',data-scale='2') 
+    div.small_title Parts of a Three.js scene
+    ul
+      li Scene
+      li Renderer
+      li Camera
+      li Geometry
+      li Material
+      li Mesh
+
+  div#slide6.step(data-x='-5000',data-y='-1000',data-scale='10') 
+    div.small_title Our First Scene
+    pre
+      | function drawScene(){\n
+      |   var width = 400, height = 300;\n
+      |   var view_angle = 45, aspect = width/height, near = 0.1, far = 10000;\n
+      |   var stage = $('#stage');\n
+      |   var renderer = new THREE.WebGLRenderer();\n
+      |   var camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);\n
+      |   var scene = new THREE.Scene();\n
+      |   scene.add(camera);\n
+      |   camera.position.z = 500;\n
+      |   renderer.setSize(width,height);\n
+      |   stage.append(renderer.domElement);\n
+      |   renderer.render(scene,camera);
+      | }
+
+  div#slide7.step(data-x='-5000',data-y='5800',data-scale='10') 
+    div.small_title Render
+    div#stage7.scene
+    script
+       function drawStage7(){
+         console.log('drawing');
+         var width = 400, height = 300;
+         var view_angle = 45, aspect = width/height, near = 0.1, far = 10000;
+         var stage = $('#stage7');
+         var renderer = new THREE.WebGLRenderer();
+         var camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
+         var scene = new THREE.Scene();
+         scene.add(camera);
+         camera.position.z = 500;
+         renderer.setSize(width,height);
+         stage.append(renderer.domElement);
+         renderer.render(scene,camera);
+       }
+       drawStage7();
+      
+  div#slide8.step(data-x='-15000',data-y='-1000',data-scale='10') 
+    div.small_title Adding An Object
+    pre
+      | function drawScene(){
+      |   //stuff from before\n
+      |   var radius = 50, segments = 16, rings = 16;\n
+      |   var geometry = new THREE.SphereGeometry(radius,segments,rings);\n
+      |   var material = new THREE.MeshLambertMaterial({ color: 0x0000CC });\n
+      |   var mesh = new THREE.Mesh(geometry,material);\n
+      |   scene.add(mesh);\n
+      |   renderer.render(scene,camera);\n
+      | }
+
+  div#slide9.step(data-x='-15000',data-y='5800',data-scale='10') 
+    div.small_title Render
+    div#stage9.scene
+    script
+       function drawStage9(){
+         console.log('drawing 2');
+         var width = 400, height = 300;
+         var view_angle = 45, aspect = width/height, near = 0.1, far = 10000;
+         var stage = $('#stage9');
+         var renderer = new THREE.WebGLRenderer();
+         var camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
+         var scene = new THREE.Scene();
+         scene.add(camera);
+         camera.position.z = 300;
+         renderer.setSize(width,height);
+         var radius = 50, segments = 16, rings = 16;
+         var geometry = new THREE.SphereGeometry(radius,segments,rings);
+         var material = new THREE.MeshBasicMaterial({ color: 0x0000CC });
+         var mesh = new THREE.Mesh(geometry,material);
+         scene.add(mesh);
+         stage.append(renderer.domElement);
+         renderer.render(scene,camera);
+       }
+       drawStage9();
+
+  div#slide10a.step(data-x='-25000',data-y='-5000',data-scale='10') 
+    div.small_title Texturing an object
+    pre
+      | function init(){
+      |   //stuff frome before
+      |   var geometry = new THREE.SphereGeometry(radius,segments,rings);\n
+      |   var texture =  THREE.ImageUtils.loadTexture('/textures/earth.jpg');\n
+      |   var material = new THREE.MeshBasicMaterial({ map: texture, overdraw:true });
+      |   var mesh = new THREE.Mesh(geometry,material);
+      |   scene.add(mesh);
+      | }\n
+
+  div#slide10b.step(data-x='-25000',data-y='-1000',data-scale='10') 
+    div.small_title Animating an object
+    pre
+      | function animate(){
+      |   requestAnimationFrame(animate);
+      |   render();
+      | }\n
+      | 
+      | function render(){
+      |   mesh.rotation.x += .01;
+      |   mesh.rotation.y += .02;
+      |   renderer.render(scene,camera);
+      | }
+      |  
+      | init();
+      | animate();
+
+  div#slide11.step(data-x='-25000',data-y='5800',data-scale='10') 
+    div.small_title Render
+    div#stage11.scene
+    script
+       function drawStage11(){
+         var width = 400, height = 300;
+         var view_angle = 45, aspect = width/height, near = 0.1, far = 10000;
+         var stage = $('#stage11');
+         var renderer = new THREE.WebGLRenderer();
+         var camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
+         var scene = new THREE.Scene();
+         scene.add(camera);
+         camera.position.z = 300;
+         renderer.setSize(width,height);
+         var radius = 50, segments = 16, rings = 16;
+         var geometry = new THREE.SphereGeometry(radius,segments,rings);
+         var material = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('/textures/earth.jpg'), overdraw:true });
+         var mesh = new THREE.Mesh(geometry,material);
+         scene.add(mesh);
+         stage.append(renderer.domElement);
+         renderer.render(scene,camera);
+         function render(){
+           mesh.rotation.y += .01;
+           renderer.render(scene,camera);
+         }
+         function animate(){
+           requestAnimationFrame(animate);
+           render();
+         }
+         animate();
+       }
+       drawStage11();
+
+  div#slide12.step(data-x='-35000',data-y='-1000',data-scale='10') 
+    div.small_title The Fun Stuff, Moving Planets
+    pre
+      | function init(){
+      |   //stuff from before
+      |   var geometry2 = new THREE.SphereGeometry(radius,segments,rings);
+      |   var texture2 =  THREE.ImageUtils.loadTexture('/textures/mars.jpg');\n
+      |   var material2 = new THREE.MeshBasicMaterial({ map:texture2, overdraw:true });
+      |   var mars = new THREE.Mesh(geometry2,material2);
+      |   mars.velocity = {x:0, y:1, z:0};
+      |   mars.position.x = 100;
+      |   scene.add(mars);
+      | }\n
+      | 
+      | function advance(p){
+      |   p.position.x += p.velocity.x;
+      |   p.position.y += p.velocity.y;
+      |   p.position.z += p.velocity.z;
+      | }
+      |  
+      | function render(){
+      |   advance(earth);
+      |   advance(mars);
+      |   renderer.render(scene,camera);
+      | }
+      | 
+      | function animate(){
+      |   requestAnimationFrame(animate);
+      |   render();
+      | }
+      |  
+      | init();
+      | animate();
+
+  div#slide13.step(data-x='-35000',data-y='5800',data-scale='10') 
+    div.small_title Render
+    div#stage13.scene
+    div#button13(style='padding:6px 8px;color:#FFFFFF;background-color:black;cursor:pointer;') Draw
+    script
+       function drawStage13(){
+         var width = 600, height = 600;
+         var view_angle = 45, aspect = width/height, near = 0.1, far = 10000;
+         var stage = $('#stage13');
+         var renderer = new THREE.WebGLRenderer();
+         var camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
+         var scene = new THREE.Scene();
+         scene.add(camera);
+         camera.position.z = 700;
+         renderer.setSize(width,height);
+         var radius = 50, segments = 16, rings = 16;
+
+         var geometry = new THREE.SphereGeometry(radius,segments,rings);
+         var material = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('/textures/earth.jpg'), overdraw:true });
+         var earth = new THREE.Mesh(geometry,material);
+         earth.velocity = {x:0, y:-1, z:0};
+         earth.position.x = -100;
+         scene.add(earth);
+
+         var geometry2 = new THREE.SphereGeometry(radius,segments,rings);
+         var material2 = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('/textures/mars.jpg'), overdraw:true });
+         var mars = new THREE.Mesh(geometry2,material2);
+         mars.velocity = {x:0, y:1, z:0};
+         mars.position.x = 100;
+         scene.add(mars);
+
+         stage.append(renderer.domElement);
+         renderer.render(scene,camera);
+         function advance(p){
+           p.position.x += p.velocity.x;
+           p.position.y += p.velocity.y;
+           p.position.z += p.velocity.z;
+         }
+         function render(){
+           advance(earth);
+           advance(mars);
+           renderer.render(scene,camera);
+         }
+         function animate(){
+           requestAnimationFrame(animate);
+           render();
+         }
+         animate();
+       }
+       $('#button13').click(function(){
+         drawStage13();
+       });
+
+  div#slide14a.step(data-x='-45000',data-y='-6000',data-scale='10') 
+    div.small_title Making planets orbit each other
+    pre
+      | function init(){
+      |   //stuff from before
+      | }\n
+      | 
+      | function dist(p1,p2){
+      |   return Math.sqrt( Math.pow(p2.position.x-p1.position.x,2)\n+ Math.pow(p2.position.y-p1.position.y,2)\n+ Math.pow(p2.position.z-p1.position.z,2) );
+      | }
+      | 
+      | function accelerate(p1,p2){
+      |   var g=4000;
+      |   var d = dist(p1,p2);
+      |   if(d>10){
+      |     p1.velocity.x += g/Math.pow(d,2) * (p2.position.x-p1.position.x)/d;
+      |     p1.velocity.y += g/Math.pow(d,2) * (p2.position.y-p1.position.y)/d;
+      |     p1.velocity.z += g/Math.pow(d,2) * (p2.position.z-p1.position.z)/d;
+      |   }
+      | }
+      | 
+      | function advance(p){
+      |   p.position.x += p.velocity.x;
+      |   p.position.y += p.velocity.y;
+      |   p.position.z += p.velocity.z;
+      | }
+
+  div#slide14b.step(data-x='-45000',data-y='-1000',data-scale='10') 
+    pre
+      | function render(){
+      |   accelerate(earth,mars);
+      |   accelerate(mars,earth);
+      |   advance(earth);
+      |   advance(mars);
+      |   earth.rotation.y += .01;
+      |   mars.rotation.y += .01;
+      |   renderer.render(scene,camera);
+      | }
+      |
+      | function animate(){
+      |   requestAnimationFrame(animate);
+      |   render();
+      | }
+      |  
+      | init();
+      | animate();
+
+  div#slide15.step(data-x='-45000',data-y='5800',data-scale='10') 
+    div.small_title Render
+    div#stage15.scene
+    div#button15(style='padding:6px 8px;color:#FFFFFF;background-color:black;cursor:pointer;') Draw
+    script
+       function drawStage15(){
+         var width = 600, height = 600;
+         var view_angle = 45, aspect = width/height, near = 0.1, far = 10000;
+         var stage = $('#stage15');
+         var renderer = new THREE.WebGLRenderer();
+         var camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
+         var scene = new THREE.Scene();
+         scene.add(camera);
+         camera.position.z = 700;
+         renderer.setSize(width,height);
+         var radius = 50, segments = 16, rings = 16;
+
+         var geometry = new THREE.SphereGeometry(radius,segments,rings);
+         var material = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('/textures/earth.jpg'), overdraw:true });
+         var earth = new THREE.Mesh(geometry,material);
+         earth.velocity = {x:0, y:-3.5, z:0};
+         earth.position.x = -100;
+         scene.add(earth);
+
+         var geometry2 = new THREE.SphereGeometry(radius,segments,rings);
+         var material2 = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('/textures/mars.jpg'), overdraw:true });
+         var mars = new THREE.Mesh(geometry2,material2);
+         mars.velocity = {x:0, y:3.5, z:0};
+         mars.position.x = 100;
+         scene.add(mars);
+
+         stage.append(renderer.domElement);
+         renderer.render(scene,camera);
+         function dist(p1,p2){
+           return Math.sqrt( Math.pow(p2.position.x-p1.position.x,2)+ Math.pow(p2.position.y-p1.position.y,2)+ Math.pow(p2.position.z-p1.position.z,2) );
+         }
+         function accelerate(p1,p2){
+           var g=4000;
+           var d = dist(p1,p2);
+           if(d>10){
+             p1.velocity.x += g/Math.pow(d,2) * (p2.position.x-p1.position.x)/d;
+             p1.velocity.y += g/Math.pow(d,2) * (p2.position.y-p1.position.y)/d;
+             p1.velocity.z += g/Math.pow(d,2) * (p2.position.z-p1.position.z)/d;
+           }
+         }
+         function advance(p){
+           p.position.x += p.velocity.x;
+           p.position.y += p.velocity.y;
+           p.position.z += p.velocity.z;
+         }
+         function render(){
+           accelerate(earth,mars);
+           accelerate(mars,earth);
+           advance(earth);
+           advance(mars);
+           earth.rotation.y += .01;
+           mars.rotation.y += .01;
+           renderer.render(scene,camera);
+         }
+         function animate(){
+           requestAnimationFrame(animate);
+           render();
+         }
+         animate();
+       }
+       $('#button15').click(function(){
+         drawStage15();
+       });
+
+  div#slide16a.step(data-x='-55000',data-y='-6000',data-scale='10') 
+    div.small_title Launching Pigs In A Box
+    pre
+      | function init(){
+      |   //stuff from before
+      |   var geometry3 = new THREE.CubeGeometry(20,20,20);
+      |   var material3 = new THREE.MeshBasicMaterial({ color: 0x964514 });
+      |   var box = new THREE.Mesh(geometry3,material3);
+      |   box.velocity = {x:-8, y:5, z:0};
+      |   box.position.x = -100;
+      |   box.position.y = 50;
+      |   box.on_earth = true;
+      |   scene.add(box);
+      | }\n
+      | 
+      | function dist(p1,p2){} //same as before
+      | function accelerate(p1,p2){} //same
+      | function advance(p){} //same
+
+  div#slide16b.step(data-x='-55000',data-y='-1000',data-scale='10') 
+    pre
+      | function render(){
+      |   accelerate(earth,mars);
+      |   accelerate(mars,earth);
+      |   advance(earth);
+      |   advance(mars);
+      |   earth.rotation.y += .01;
+      |   mars.rotation.y += .01;
+      |   if(box.on_earth){
+      |     box.position.x = earth.position.x;
+      |     box.position.y = earth.position.y + 50;
+      |     box.position.z = earth.position.z;
+      |   }
+      |   else{
+      |     accelerate(box,earth);
+      |     accelerate(box,mars);
+      |     advance(box);
+      |   }
+      |   renderer.render(scene,camera);
+      | }
+      | 
+      | function animate(){
+      |   requestAnimationFrame(animate);
+      |   render();
+      | }
+      |  
+      | init();
+      | animate();
+
+  div#slide17.step(data-x='-55000',data-y='5800',data-scale='10') 
+    div.small_title Render
+    div#stage17.scene
+    div#button17(style='padding:6px 8px;color:#FFFFFF;background-color:black;cursor:pointer;') Draw
+    div#launch(style='padding:6px 8px;color:#FFFFFF;background-color:red;cursor:pointer;') Launch
+    script
+       function drawStage17(){
+         var width = 600, height = 600;
+         var view_angle = 45, aspect = width/height, near = 0.1, far = 10000;
+         var stage = $('#stage17');
+         var renderer = new THREE.WebGLRenderer();
+         var camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
+         var scene = new THREE.Scene();
+         scene.add(camera);
+         camera.position.z = 1000;
+         renderer.setSize(width,height);
+         var radius = 50, segments = 16, rings = 16;
+
+         var geometry = new THREE.SphereGeometry(radius,segments,rings);
+         var material = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('/textures/earth.jpg'), overdraw:true });
+         var earth = new THREE.Mesh(geometry,material);
+         earth.velocity = {x:0, y:-3.5, z:0};
+         earth.position.x = -100;
+         scene.add(earth);
+
+         var geometry3 = new THREE.CubeGeometry(20,20,20);
+         var material3 = new THREE.MeshBasicMaterial({ color: 0x964514 });
+         var box = new THREE.Mesh(geometry3,material3);
+         box.velocity = {x:-8, y:5, z:0};
+         box.position.x = -100;
+         box.position.y = 50;
+         box.on_earth = true;
+         scene.add(box);
+
+         var geometry2 = new THREE.SphereGeometry(radius,segments,rings);
+         var material2 = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('/textures/mars.jpg'), overdraw:true });
+         var mars = new THREE.Mesh(geometry2,material2);
+         mars.velocity = {x:0, y:3.5, z:0};
+         mars.position.x = 100;
+         scene.add(mars);
+
+         stage.append(renderer.domElement);
+         renderer.render(scene,camera);
+         function dist(p1,p2){
+           return Math.sqrt( Math.pow(p2.position.x-p1.position.x,2)+ Math.pow(p2.position.y-p1.position.y,2)+ Math.pow(p2.position.z-p1.position.z,2) );
+         }
+         function accelerate(p1,p2){
+           var g=4000;
+           var d = dist(p1,p2);
+           if(d>10){
+             p1.velocity.x += g/Math.pow(d,2) * (p2.position.x-p1.position.x)/d;
+             p1.velocity.y += g/Math.pow(d,2) * (p2.position.y-p1.position.y)/d;
+             p1.velocity.z += g/Math.pow(d,2) * (p2.position.z-p1.position.z)/d;
+           }
+         }
+         function advance(p){
+           p.position.x += p.velocity.x;
+           p.position.y += p.velocity.y;
+           p.position.z += p.velocity.z;
+         }
+         function render(){
+           accelerate(earth,mars);
+           accelerate(mars,earth);
+           advance(earth);
+           advance(mars);
+           earth.rotation.y += .01;
+           mars.rotation.y += .01;
+           if(box.on_earth){
+             box.position.x = earth.position.x;
+             box.position.y = earth.position.y + 50;
+             box.position.z = earth.position.z;
+           }
+           else{
+             accelerate(box,earth);
+             accelerate(box,mars);
+             advance(box);
+           }
+           renderer.render(scene,camera);
+         }
+         $('#launch').click(function(){
+           box.on_earth = false;
+         });
+         function animate(){
+           requestAnimationFrame(animate);
+           render();
+         }
+         animate();
+       }
+       $('#button17').click(function(){
+         drawStage17();
+       });
+
+  div#slide18.step(data-x='-100000',data-y='5800',data-scale='20') 
+    div.title Review
+    ul
+      li Add scene to page
+      li Add materials to geomentry to make meshes
+      li Add meshes to scene
+      li Apply app logic to meshes
+
+  div#slide19.step(data-x='-100000',data-y='-58000',data-scale='20') 
+    div.title Questions?
+    div.small_title Follow @travisglines if you want to reach out
+
+  script(type='text/javascript')
+    $(document).ready(function(){
+      impress().init();
+    });

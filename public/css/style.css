@@ -1,0 +1,57 @@
+.no-support-message { display:none; }
+.impress-not-supported .no-support-message { display:block; }
+
+/* additional styles just to make things look a bit nicer */
+body { background:#EBEBEB; color:#333; font-family: arial, sans-serif;}
+
+.step {
+   width:940px; margin:0 auto 24px auto; text-align:center;
+  -webkit-transition: opacity 1s;
+  -moz-transition:    opacity 1s;
+  -ms-transition:     opacity 1s;
+  -o-transition:      opacity 1s;
+  transition:         opacity 1s; }
+
+.step:not(.active) {
+    opacity: 0.3;
+}
+
+.title{
+  font-size:62px;
+  margin-bottom:20px;
+}
+
+.small_text{
+  font-size:32px;
+}
+
+.small_title{
+  font-size:54px;
+  margin-bottom:5px;
+}
+
+ul{
+  text-align:left;margin-top:10px;
+  margin-left:200px;
+}
+
+li{
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+pre{
+  font-size:16px;
+  text-align:left;
+  background-color:#333333;
+  color:#FFFFFF;
+  padding:5px;
+}
+
+.scene{
+  background-color:#000000;
+}
+
+#stage13,#stage15,#stage17{
+  height:600px;
+}
